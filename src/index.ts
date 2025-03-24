@@ -25,10 +25,7 @@ app.get("/", (req, res)=>{
 });
 
 // Caso o login seja bem-sucedido, retornamos o token do usuário:
-app.get("/login", async (req, res)=>{
-    const userToken = await login(req, res);
-    res.json(userToken);
-});
+app.get("/login", async (req, res)=> {await login(req, res)});
 
 // Criando um usuário:
 app.post("/users", async (req, res)=>{
