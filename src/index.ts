@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import sequelize from "./database/database";
+import User from "./database/models/User";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -12,9 +14,32 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+sequelize.sync({force: true}).then(()=>{
+    console.log('Banco de Dados Sincronizados...');
+});
+
 // Rotas da aplicação:
 app.get("/", (req, res)=>{
-    res.send("Servidor rodando com TypeScript");
+    res.send("Welcome in BETA");
+});
+
+// Obtendo todos os usuários:
+app.get("/users", async (req, res)=>{
+    const users = await User.findAll();
+    res.json(users);
+});
+
+// Criando um usuário:
+app.post("/users", async (req, res)=>{
+    try{
+        const { name, email, password } = req.body;
+        const newUser = await User.create({name, email, password});
+
+        res.status(201).json(newUser);
+    } catch(e){
+        console.log(`ERROR: ${e}`);
+        res.status(500).json({error: "Erro ao criar usuário..."})
+    }
 });
 
 // Executando o servidor: 
