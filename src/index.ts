@@ -12,7 +12,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: "http://localhost:5173", // Permitir requisições do frontend
+        methods: ["GET", "POST", "PUT", "DELETE"], // Métodos permitidos
+        credentials: true, // Se precisar enviar cookies ou autenticação
+    }
+));
 app.use(express.json());
 
 sequelize.sync({force: true}).then(()=>{
@@ -25,7 +31,7 @@ app.get("/", (req, res)=>{
 });
 
 // Caso o login seja bem-sucedido, retornamos o token do usuário:
-app.get("/login", async (req, res)=> {await login(req, res)});
+app.post("/login", async (req, res)=> {await login(req, res)});
 
 // Criando um usuário:
 app.post("/users", async (req, res)=>{
