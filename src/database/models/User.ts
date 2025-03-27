@@ -6,8 +6,8 @@ class User extends Model {
     public id! : number;
     public name! : string;
     public email! : string;
-    public password! : string; 
-
+    public password! : string;
+    
     public async checkPassword(password:string): Promise<boolean>{
         return await bcrypt.compare(password, this.password)
     }
@@ -46,7 +46,7 @@ User.init(
 );
 
 sequelize.sync().then(()=>{
-    console.log('Tabela de Usuário sincronizada...');
+    console.log("Tabela de Usuário sincronizada...");
 })
 
 export default User;
