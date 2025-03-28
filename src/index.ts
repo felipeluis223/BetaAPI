@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import sequelize from "./database/database";
 import User from "./database/models/User";
 import { login } from "./auth/authController";
+import createUser from "./routes/user/create";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -31,20 +32,10 @@ app.get("/", (req, res)=>{
 });
 
 // Caso o login seja bem-sucedido, retornamos o token do usuário:
-app.post("/login", async (req, res)=> {await login(req, res)});
+app.post("/login", async (req, res)=> { await login(req, res)});
 
 // Criando um usuário:
-app.post("/users", async (req, res)=>{
-    try{
-        const { name, email, password } = req.body;
-        const newUser = await User.create({name, email, password});
-
-        res.status(201).json(newUser);
-    } catch(e){
-        console.log(`ERROR: ${e}`);
-        res.status(500).json({error: "Erro ao criar usuário..."})
-    }
-});
+app.post("/users", async (req, res)=> { await createUser(req, res)});
 
 // Obtendo todos os usuários:
 app.get("/users", async (req, res)=>{
