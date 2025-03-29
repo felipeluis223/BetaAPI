@@ -5,6 +5,7 @@ import sequelize from "./database/database";
 import User from "./database/models/User";
 import { login } from "./auth/authController";
 import createUser from "./routes/user/create";
+import getUser from "./routes/user/getUser";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -38,10 +39,7 @@ app.post("/login", async (req, res)=> { await login(req, res)});
 app.post("/users", async (req, res)=> { await createUser(req, res)});
 
 // Obtendo todos os usuários:
-app.get("/users", async (req, res)=>{
-    const users = await User.findAll();
-    res.json(users);
-});
+app.get("/users", async (req, res)=>{ await getUser(req, res)});
 
 // Executando o servidor: 
 app.listen(PORT, ()=>{

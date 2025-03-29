@@ -48,3 +48,5 @@ Employee.init(
 sequelize.sync().then(()=>{
     console.log("Tabela de Funcionário sincronizada...")
 });
+
+export default Employee;
