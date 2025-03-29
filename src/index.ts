@@ -6,6 +6,7 @@ import User from "./database/models/User";
 import { login } from "./auth/authController";
 import createUser from "./routes/user/create";
 import getUser from "./routes/user/getUser";
+import createEmployee from "./routes/employee/create";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -23,23 +24,27 @@ app.use(cors(
 ));
 app.use(express.json());
 
-sequelize.sync({force: true}).then(()=>{
+sequelize.sync({force: true}).then(() => {
     console.log('Banco de Dados Sincronizados...');
 });
 
 // Rotas da aplicação:
-app.get("/", (req, res)=>{
+app.get("/", (req, res) => {
     res.send("Welcome in BETA");
 });
 
 // Caso o login seja bem-sucedido, retornamos o token do usuário:
-app.post("/login", async (req, res)=> { await login(req, res)});
+app.post("/login", async (req, res) => { await login(req, res)});
 
 // Criando um usuário:
-app.post("/users", async (req, res)=> { await createUser(req, res)});
+app.post("/users", async (req, res) => { await createUser(req, res)});
 
 // Obtendo todos os usuários:
-app.get("/users", async (req, res)=>{ await getUser(req, res)});
+app.get("/users", async (req, res) =>{ await getUser(req, res)});
+
+// Criando um funcionário:
+app.post("/employees", async (req, res) => { await createEmployee(req, res)});
+
 
 // Executando o servidor: 
 app.listen(PORT, ()=>{

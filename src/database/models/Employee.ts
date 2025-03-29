@@ -21,7 +21,7 @@ Employee.init(
             allowNull: false
         },
         cpf: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             unique: true   
