@@ -2,19 +2,21 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 
 class Employee extends Model {
-    public id! : number;
-    public name! : string;
-    public cpf! : string;
-    public rg! : string;
-    public email! : string;
-    public phone! : string;
-};
+    public id!: number;
+    public name!: string;
+    public cpf!: string;
+    public rg!: string;
+    public email!: string;
+    public phone!: string;
+}
 
 Employee.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            autoIncrement: true
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
         },
         name: {
             type: DataTypes.STRING,
@@ -23,8 +25,7 @@ Employee.init(
         cpf: {
             type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true,
-            unique: true
+            unique: true 
         },
         rg: {
             type: DataTypes.STRING,
@@ -41,14 +42,16 @@ Employee.init(
     },
     {
         sequelize,
-        modelName: "employees", // Sequelize pluraliza automaticamente
-        tableName: "employees", // Se quiser forçar o nome da tabela
+        modelName: "employees",
+        tableName: "employees", // Nome da tabela pode ser definido explicitamente
         timestamps: true // Adiciona `createdAt` e `updatedAt` automaticamente
     }
 );
 
-sequelize.sync().then(()=>{
-    console.log("Tabela de Funcionário sincronizada...")
+sequelize.sync().then(() => {
+    console.log("Tabela de Funcionário sincronizada...");
+}).catch((error) => {
+    console.error("Erro ao sincronizar tabela:", error);
 });
 
 export default Employee;

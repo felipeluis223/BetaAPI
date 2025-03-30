@@ -37,6 +37,7 @@ User.init(
     {
         sequelize,
         modelName: "users",
+        tableName: "users", // Forçar o nome da tabela
         hooks: {
             beforeCreate: async (user)=>{
                 user.password = await bcrypt.hash(user.password, 10) //Hash antes de salvar
