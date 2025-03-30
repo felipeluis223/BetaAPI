@@ -41,13 +41,13 @@ app.post("/login", async (req, res) => { await login(req, res)});
 app.post("/users", async (req, res) => { await createUser(req, res)});
 
 // Obtendo todos os usuários:
-app.get("/users", async (req, res) =>{ await getUser(req, res)});
+app.get("/users", async (req, res) => { await getUser(req, res)});
 
 // Criando um funcionário:
 // app.post("/employees", async (req, res) => { await createEmployee(req, res)});
 
 // Obtendo todos os funcionários:
-// app.get("/employees", async (req, res) =>{ await getEmployee(req, res)});
+app.get("/employees", async (req, res) => { await getEmployee(req, res)});
 
 
 // Executando o servidor: 

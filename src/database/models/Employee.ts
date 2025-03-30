@@ -21,10 +21,10 @@ Employee.init(
             allowNull: false
         },
         cpf: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
-            unique: true   
+            unique: true
         },
         rg: {
             type: DataTypes.STRING,
@@ -41,7 +41,7 @@ Employee.init(
     },
     {
         sequelize,
-        modelName: "employee"
+        modelName: "employees"
     }
 );
 
