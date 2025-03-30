@@ -4,7 +4,7 @@ import sequelize from "../database";
 class Employee extends Model {
     public id! : number;
     public name! : string;
-    public cpf! : number;
+    public cpf! : string;
     public rg! : string;
     public email! : string;
     public phone! : string;
@@ -41,7 +41,9 @@ Employee.init(
     },
     {
         sequelize,
-        modelName: "employees"
+        modelName: "employees", // Sequelize pluraliza automaticamente
+        tableName: "employees", // Se quiser forçar o nome da tabela
+        timestamps: true // Adiciona `createdAt` e `updatedAt` automaticamente
     }
 );
 
