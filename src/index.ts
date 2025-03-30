@@ -7,6 +7,7 @@ import { login } from "./auth/authController";
 import createUser from "./routes/user/create";
 import getUser from "./routes/user/getUser";
 import createEmployee from "./routes/employee/create";
+import getEmployee from "./routes/employee/getEmployee";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -43,7 +44,10 @@ app.post("/users", async (req, res) => { await createUser(req, res)});
 app.get("/users", async (req, res) =>{ await getUser(req, res)});
 
 // Criando um funcionário:
-app.post("/employees", async (req, res) => { await createEmployee(req, res)});
+// app.post("/employees", async (req, res) => { await createEmployee(req, res)});
+
+// Obtendo todos os funcionários:
+// app.get("/employees", async (req, res) =>{ await getEmployee(req, res)});
 
 
 // Executando o servidor: 
