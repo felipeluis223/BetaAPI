@@ -2,12 +2,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import sequelize from "./database/database";
-import User from "./database/models/User";
 import { login } from "./auth/authController";
-import createUser from "./routes/user/create";
-import getUser from "./routes/user/getUser";
-import createEmployee from "./routes/employee/create";
-import getEmployee from "./routes/employee/getEmployee";
+import createUser from "./controller/user/create";
+import getUser from "./controller/user/getAll";
+import createEmployee from "./controller/employee/create";
+import getEmployee from "./controller/employee/getAll";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -33,14 +32,14 @@ app.get("/", (req, res) => {
     res.send("Welcome in BETA");
 });
 
-// Caso o login seja bem-sucedido, retornamos o token do usuário:
-app.post("/login", async (req, res) => { await login(req, res)});
-
 // Criando um usuário:
 app.post("/users", async (req, res) => { await createUser(req, res)});
 
 // Obtendo todos os usuários:
 app.get("/users", async (req, res) => { await getUser(req, res)});
+
+// Caso o login seja bem-sucedido, retornamos o token do usuário:
+app.post("/login", async (req, res) => { await login(req, res)});
 
 // Criando um funcionário:
 app.post("/employees", async (req, res) => { await createEmployee(req, res)});
