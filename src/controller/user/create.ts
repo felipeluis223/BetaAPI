@@ -6,9 +6,8 @@ const createUser = async (req: Request, res: Response)=>{
         const { name, email, password } = req.body;
         const newUser = await User.create({ name, email, password });
         res.status(201).json(newUser);
-    }catch(e){
-        console.log('ERROR: ', e);
-        res.status(500).json({e: "Erro ao criar usuário..."});
+    }catch(error){
+        res.status(500).json({ message: "Falha! Verifique suas informações e tente novamente."});
     }
 };
 
