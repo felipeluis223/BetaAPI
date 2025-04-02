@@ -7,7 +7,7 @@ const createEmployee = async (req: Request, res: Response) => {
 
         // Verificar se todos os campos obrigatórios estão preenchidos
         if (!name || !cpf || !rg || !email || !phone) {
-            return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
+            return res.status(400).json({ message: "Todos os campos são obrigatórios!" });
         }
 
         // Criar o funcionário no banco de dados
@@ -15,8 +15,7 @@ const createEmployee = async (req: Request, res: Response) => {
 
         return res.status(201).json(newEmployee);
     } catch (error) {
-        console.error("ERROR: ", error);
-        return res.status(500).json({ error: "Erro ao criar funcionário." });
+        return res.status(500).json({ message: "Erro ao criar funcionário." });
     }
 };
 
