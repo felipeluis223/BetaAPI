@@ -6,7 +6,7 @@ const getUsers = async (req: Request, res: Response) => {
     try {
         const allUsers = await User.findAll();
         if (allUsers.length === 0) {
-            return res.status(404).json({ message: "Nenhum usuário cadastrado no momento." });
+            return res.json({ message: "Nenhum usuário cadastrado no momento." });
         }
 
         res.status(200).json(allUsers);
