@@ -37,7 +37,7 @@ app.post("/login", async (req, res) => {
 });
 
 // Rotas protegidas:
-app.post("/users", authenticate, async (req, res) => {
+app.post("/users", async (req, res) => {
     await createUser(req, res);
 });
 
