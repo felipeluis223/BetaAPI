@@ -3,51 +3,50 @@ import sequelize from "../database";
 import bcrypt from "bcrypt";
 
 class User extends Model {
-    public id! : number;
-    public name! : string;
-    public email! : string;
-    public password! : string;
-    
-    public async checkPassword(password:string): Promise<boolean>{
-        return await bcrypt.compare(password, this.password)
-    }
-};
+  public id!: number;
+  public email!: string;
+  public name!: string;
+  public password?: string;
+
+  public async checkPassword(password: string): Promise<boolean> {
+    if (!this.password) return false;
+    return await bcrypt.compare(password, this.password);
+  }
+}
 
 User.init(
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true, // Tornar opcional para permitir login via Google
+    },
+  },
+  {
+    sequelize,
+    modelName: "User",
+    tableName: "users", // opcional: define o nome da tabela
+    hooks: {
+      beforeCreate: async (user: User) => {
+        if (user.password) {
+          user.password = await bcrypt.hash(user.password, 10);
         }
+      },
     },
-    {
-        sequelize,
-        modelName: "users",
-        tableName: "users", // Forçar o nome da tabela
-        hooks: {
-            beforeCreate: async (user)=>{
-                user.password = await bcrypt.hash(user.password, 10) //Hash antes de salvar
-            },
-        },
-    },
+  }
 );
-
-sequelize.sync().then(()=>{
-    console.log("Tabela de Usuário sincronizada...");
-})
 
 export default User;

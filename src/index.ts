@@ -8,6 +8,7 @@ import createUser from "./controller/user/create";
 import getUser from "./controller/user/getAll";
 import createEmployee from "./controller/employee/create";
 import getEmployee from "./controller/employee/getAll";
+import { googleLogin } from "./auth/googleLogin";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -35,6 +36,9 @@ app.get("/", (req, res) => {
 app.post("/login", async (req, res) => {
     await login(req, res);
 });
+
+// Autenticação de login - Google:
+app.post("/auth/google", googleLogin);
 
 // Rotas protegidas:
 app.post("/users", async (req, res) => {

@@ -13,16 +13,24 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
   const token = req.headers.authorization?.split(" ")[1]; // Captura "Bearer TOKEN"
 
   if (!token) {
-    res.status(401).json({ error: "Token não fornecido" });
-    return;
+    return res.status(401).json({ error: "Token não fornecido" });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
+    // Verifique o token com o algoritmo correto (HS256)
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string, {
+      algorithms: ["HS256"], // Certifique-se de especificar o algoritmo
+    }) as JwtPayload;
+    
     req.user = decoded; // Agora reconhecido corretamente com a interface `AuthRequest`
     next();
   } catch (error) {
     console.error("Erro ao verificar token:", error);
-    res.status(403).json({ error: "Token inválido ou expirado" });
+
+    if (error instanceof jwt.TokenExpiredError) {
+      return res.status(401).json({ error: "Token expirado" });
+    }
+
+    return res.status(403).json({ error: "Token inválido ou mal formado" });
   }
 };
