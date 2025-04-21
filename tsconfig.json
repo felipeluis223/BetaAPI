@@ -1,11 +1,18 @@
 {
-    "compilerOptions": {
-      "target": "ES6",
-      "module": "CommonJS",
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "strict": true,
-      "esModuleInterop": true
-    }
-  }
-  
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",  // Em minúsculo
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true, // Ignora checagens de tipos de bibliotecas
+    "resolveJsonModule": true // Permite importar arquivos .json
+  },
+  "include": [
+    "src/**/*.ts" // Garante que todos os arquivos .ts em src sejam incluídos
+  ],
+  "exclude": [
+    "node_modules" // Exclui a pasta node_modules da compilação
+  ]
+}

@@ -2,13 +2,17 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import sequelize from "./database/database";
-import { login } from "./auth/authController";
-import { authenticate } from "./auth/authMiddleware";
-import createUser from "./controller/user/create";
-import getUser from "./controller/user/getAll";
-import createEmployee from "./controller/employee/create";
-import getEmployee from "./controller/employee/getAll";
-import { googleLogin } from "./auth/googleLogin";
+
+import userRoutes from "./routes/userRoutes";
+
+
+// import { login } from "./auth/authController";
+// import { authenticate } from "./auth/authMiddleware";
+// import createUser from "./controller/user/create";
+// import getUser from "./controller/user/getAll";
+// import createEmployee from "./controller/employee/create";
+// import getEmployee from "./controller/employee/getAll";
+// import { googleLogin } from "./auth/googleLogin";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -32,30 +36,33 @@ app.get("/", (req, res) => {
     res.send("Welcome in BETA");
 });
 
-// Login público
-app.post("/login", async (req, res) => {
-    await login(req, res);
-});
+// Rotas de usuários:
+app.use("/users", userRoutes);
 
-// Autenticação de login - Google:
-app.post("/auth/google", googleLogin);
+// // Login público
+// app.post("/login", async (req, res) => {
+//     await login(req, res);
+// });
 
-// Rotas protegidas:
-app.post("/users", async (req, res) => {
-    await createUser(req, res);
-});
+// // Autenticação de login - Google:
+// app.post("/auth/google", googleLogin);
 
-app.get("/users", authenticate, async (req, res) => {
-    await getUser(req, res);
-});
+// // Rotas protegidas:
+// app.post("/users", async (req, res) => {
+//     await createUser(req, res);
+// });
 
-app.post("/employees", authenticate, async (req, res) => {
-    await createEmployee(req, res);
-});
+// app.get("/users", authenticate, async (req, res) => {
+//     await getUser(req, res);
+// });
 
-app.get("/employees", authenticate, async (req, res) => {
-    await getEmployee(req, res);
-});
+// app.post("/employees", authenticate, async (req, res) => {
+//     await createEmployee(req, res);
+// });
+
+// app.get("/employees", authenticate, async (req, res) => {
+//     await getEmployee(req, res);
+// });
 
 // Executando o servidor:
 app.listen(PORT, () => {
