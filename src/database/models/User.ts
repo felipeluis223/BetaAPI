@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 
 class User extends Model {
-  public id!: string;  // Mudança de número para string (UUID)
+  public id!: string;
   public email!: string;
   public name!: string;
   public password?: string;

@@ -1,8 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
+import { v4 as uuidv4 } from "uuid";
 
 class Employee extends Model {
-    public id!: number;
+    public id!: string;
     public name!: string;
     public cpf!: string;
     public rg!: string;
@@ -13,8 +14,8 @@ class Employee extends Model {
 Employee.init(
     {
         id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
+            type: DataTypes.UUID,  // UUID
+            defaultValue: uuidv4,  // Gerando UUID automaticamente
             primaryKey: true,
             allowNull: false
         },
