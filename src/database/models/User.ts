@@ -1,9 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
 
 class User extends Model {
-  public id!: number;
+  public id!: string;  // Mudança de número para string (UUID)
   public email!: string;
   public name!: string;
   public password?: string;
@@ -17,9 +18,9 @@ class User extends Model {
 User.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.UUID,  // UUID
+      defaultValue: uuidv4,  // Gerando UUID automaticamente
       primaryKey: true,
-      autoIncrement: true,
     },
     email: {
       type: DataTypes.STRING,

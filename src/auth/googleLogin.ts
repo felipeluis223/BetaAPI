@@ -18,7 +18,7 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
   }
 
   try {
-    // Verifica o token com o Google
+    // Verifica o token com o Google:
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
@@ -35,15 +35,9 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
 
     const { email, name } = payload;
     let user = await User.findOne({ where: { email } });
-    
-    console.log("------------------------------------------------------------------------------------------------------------");
-    console.log('Usuário: ', user)
-    console.log("------------------------------------------------------------------------------------------------------------");
-    // Se o usuário não for encontrado, cria um novo
+
+    // Se o usuário não for encontrado, cria um novo:
     if (!user) {
-      console.log("------------------------------------------------------------------------------------------------------------");
-      console.log("Usuário não encontrado, criando...");
-      console.log("------------------------------------------------------------------------------------------------------------");
       user = await User.create({ email, name });
       console.log("Usuário criado no banco:", user);
     }
@@ -55,7 +49,7 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
       { expiresIn: "1h" }
     );
 
-    // Retorna o token + dados do usuário
+    // Retorna o token + dados do usuário:
     res.json({
       token: jwtToken,
       user: {

@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import sequelize from "./database/database";
+// import sequelize from "./database/database";
 import userRoutes from "./routes/user";
 import employeeRoutes from "./routes/employee";
 import loginPublic from "./routes/authentication/index";
@@ -21,9 +21,9 @@ app.use(cors({
 app.use(express.json());
 
 // Resetando os dados do DB (use com cautela, apenas para desenvolvimento):
-sequelize.sync({ force: true }).then(() => {
-  console.log("Banco de Dados Sincronizados...");
-});
+// sequelize.sync({ force: true }).then(() => {
+//   console.log("Banco de Dados Sincronizados...");
+// });
 
 // Rotas da aplicação
 app.get("/", (req, res) => {
