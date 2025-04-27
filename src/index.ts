@@ -23,6 +23,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Resetando os dados do DB:
 sequelize.sync({ force: true }).then(() => {
     console.log("Banco de Dados Sincronizados...");
 });
@@ -42,14 +43,6 @@ app.post("/auth/google", googleLogin);
 
 // // Rotas protegidas de usuários:
 app.use('/users', useRoutes);
-
-app.post("/employees", authenticate, async (req, res) => {
-    await createEmployee(req, res);
-});
-
-app.get("/employees", authenticate, async (req, res) => {
-    await getEmployee(req, res);
-});
 
 // Executando o servidor:
 app.listen(PORT, () => {

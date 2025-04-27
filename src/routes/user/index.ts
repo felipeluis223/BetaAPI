@@ -5,7 +5,7 @@ import getUsers from '../../controller/user/getAll';
 
 const router = Router();
 
-// Rotas protegidas
+// Rotas protegidas:
 router.post('/', async (req, res) => {
     await createUser(req, res);
 });
