@@ -7,43 +7,38 @@ import employeeRoutes from "./routes/employee";
 import loginPublic from "./routes/authentication/index";
 import googleRoutes from "./routes/authentication/google";
 
-// Obter os arquivos .env:
+// Obter as variáveis do arquivo .env
 dotenv.config();
 
-// Configuração da aplicação:
+// Configuração da aplicação
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
 }));
 app.use(express.json());
 
-// Resetando os dados do DB:
+// Resetando os dados do DB (use com cautela, apenas para desenvolvimento):
 sequelize.sync({ force: true }).then(() => {
-    console.log("Banco de Dados Sincronizados...");
+  console.log("Banco de Dados Sincronizados...");
 });
 
-// Rotas da aplicação:
+// Rotas da aplicação
 app.get("/", (req, res) => {
-    res.send("Welcome in BETA");
+  res.send("Welcome in BETA");
 });
 
-// Autenticação de login - público:
+// Rotas de autenticação de login:
 app.use("/login", loginPublic);
-
-// Autenticação de login - Google:
 app.use("/auth/google", googleRoutes);
 
-// // Rotas protegidas de usuários:
+// Rotas protegidas de usuários:
 app.use('/users', userRoutes);
-
-// // Rotas protegidas de usuários:
 app.use('/employees', employeeRoutes);
-
 
 // Executando o servidor:
 app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

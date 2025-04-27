@@ -38,7 +38,7 @@ User.init(
   {
     sequelize,
     modelName: "User",
-    tableName: "users", // opcional: define o nome da tabela
+    tableName: "users",
     hooks: {
       beforeCreate: async (user: User) => {
         if (user.password) {

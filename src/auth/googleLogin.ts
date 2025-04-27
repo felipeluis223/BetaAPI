@@ -12,41 +12,47 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
   const { token } = req.body;
 
   if (!token) {
+    console.log("Token não fornecido");
     res.status(400).json({ error: "Token não fornecido" });
     return;
   }
 
   try {
+    // Verifica o token com o Google
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
     const payload = ticket.getPayload();
+    console.log("Payload do Google:", payload);
 
     if (!payload || !payload.email) {
+      console.log("Token inválido ou sem email");
       res.status(401).json({ error: "Token inválido" });
       return;
     }
 
     const { email, name } = payload;
     let user = await User.findOne({ where: { email } });
-
-    // Se o usuário não existir, cria um novo
+    
+    console.log("------------------------------------------------------------------------------------------------------------");
+    console.log('Usuário: ', user)
+    console.log("------------------------------------------------------------------------------------------------------------");
+    // Se o usuário não for encontrado, cria um novo
     if (!user) {
+      console.log("------------------------------------------------------------------------------------------------------------");
+      console.log("Usuário não encontrado, criando...");
+      console.log("------------------------------------------------------------------------------------------------------------");
       user = await User.create({ email, name });
+      console.log("Usuário criado no banco:", user);
     }
 
-    // Gera token JWT
+    // Gera o token JWT
     const jwtToken = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-      },
+      { id: user.id, email: user.email },
       process.env.JWT_SECRET as string,
-      {
-        expiresIn: "1h",
-      }
+      { expiresIn: "1h" }
     );
 
     // Retorna o token + dados do usuário
@@ -60,8 +66,6 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
     });
   } catch (err) {
     console.error("Erro ao verificar o token do Google:", err);
-    res.status(401).json({
-      error: "Token inválido ou expirado...",
-    });
+    res.status(401).json({ error: "Token inválido ou expirado..." });
   }
 };
