@@ -39,6 +39,8 @@ app.get("/", (req, res) => {
 // Rotas de usuários:
 app.use("/users", userRoutes);
 
+
+
 // // Login público
 // app.post("/login", async (req, res) => {
 //     await login(req, res);
