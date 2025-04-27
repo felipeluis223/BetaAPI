@@ -2,13 +2,10 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import sequelize from "./database/database";
-import { login } from "./auth/authController";
-import { authenticate } from "./auth/authMiddleware";
-import createEmployee from "./controller/employee/create";
-import getEmployee from "./controller/employee/getAll";
-import { googleLogin } from "./auth/googleLogin";
-
-import useRoutes from "./routes/user";
+import userRoutes from "./routes/user";
+import employeeRoutes from "./routes/employee";
+import loginPublic from "./routes/authentication/index";
+import googleRoutes from "./routes/authentication/google";
 
 // Obter os arquivos .env:
 dotenv.config();
@@ -33,16 +30,18 @@ app.get("/", (req, res) => {
     res.send("Welcome in BETA");
 });
 
-// Autenticação de login público:
-app.post("/login", async (req, res) => {
-    await login(req, res);
-});
+// Autenticação de login - público:
+app.use("/login", loginPublic);
 
 // Autenticação de login - Google:
-app.post("/auth/google", googleLogin);
+app.use("/auth/google", googleRoutes);
 
 // // Rotas protegidas de usuários:
-app.use('/users', useRoutes);
+app.use('/users', userRoutes);
+
+// // Rotas protegidas de usuários:
+app.use('/employees', employeeRoutes);
+
 
 // Executando o servidor:
 app.listen(PORT, () => {

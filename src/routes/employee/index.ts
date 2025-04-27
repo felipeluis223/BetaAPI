@@ -6,11 +6,11 @@ import createEmployee from '../../controller/employee/create';
 const router = Router();
 
 // Rotas protegidas:
-router.post("/employees", authenticate, async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
     await createEmployee(req, res);
 });
 
-router.get("/employees", authenticate, async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
     await getEmployee(req, res);
 });
 
