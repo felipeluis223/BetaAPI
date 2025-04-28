@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import User from '../../database/models/User'; // modelo do banco
+import User from '../../database/models/User';
 
 const updateUser = async (req: Request, res: Response) => {
     try {
