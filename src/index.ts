@@ -7,10 +7,10 @@ import employeeRoutes from "./routes/employee";
 import loginPublic from "./routes/authentication/index";
 import googleRoutes from "./routes/authentication/google";
 
-// Obter as variáveis do arquivo .env
+// Obter as variáveis do arquivo .env:
 dotenv.config();
 
-// Configuração da aplicação
+// Configuração da aplicação:
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -25,7 +25,7 @@ sequelize.sync({ force: true }).then(() => {
   console.log("Banco de Dados Sincronizados...");
 });
 
-// Rotas da aplicação
+// Rotas da aplicação:
 app.get("/", (req, res) => {
   res.send("Welcome in BETA");
 });
