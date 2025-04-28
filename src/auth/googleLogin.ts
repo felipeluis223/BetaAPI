@@ -42,7 +42,7 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
       console.log("Usuário criado no banco:", user);
     }
 
-    // Gera o token JWT
+    // Gera o token JWT:
     const jwtToken = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET as string,
