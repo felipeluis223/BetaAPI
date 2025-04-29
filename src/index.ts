@@ -21,9 +21,9 @@ app.use(cors({
 app.use(express.json());
 
 // Resetando os dados do DB (use com cautela, apenas para desenvolvimento):
-sequelize.sync({ force: true }).then(() => {
-  console.log("Banco de Dados Sincronizados...");
-});
+// sequelize.sync({ force: true }).then(() => {
+//   console.log("Banco de Dados Sincronizados...");
+// });
 
 // Rotas da aplicação:
 app.get("/", (req, res) => {
