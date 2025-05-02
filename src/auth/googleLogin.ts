@@ -12,44 +12,41 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
   const { token } = req.body;
 
   if (!token) {
-    console.log("Token não fornecido");
-    res.status(400).json({ error: "Token não fornecido" });
+    console.log("Acesso negado: token não informado.");
+    res.status(400).json({ error: "Acesso negado: token não informado." });
     return;
   }
 
   try {
-    // Verifica o token com o Google:
+    // Verificar token com da Google:
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
     const payload = ticket.getPayload();
-    console.log("Payload do Google:", payload);
 
     if (!payload || !payload.email) {
-      console.log("Token inválido ou sem email");
-      res.status(401).json({ error: "Token inválido" });
+      res.status(401).json({ error: "Erro de autenticação: token inválido ou e-mail não encontrado." });
       return;
     }
 
     const { email, name } = payload;
     let user = await User.findOne({ where: { email } });
 
-    // Se o usuário não for encontrado, cria um novo:
+    // Caso o usuário não exista, cria um novo registro:
     if (!user) {
       user = await User.create({ email, name });
-      console.log("Usuário criado no banco:", user);
     }
 
-    // Gera o token JWT:
+    // Gerar token JWT:
     const jwtToken = jwt.sign(
       { id: user.id, name: user.name, email: user.email },
       process.env.JWT_SECRET as string,
       { expiresIn: "1h" }
     );
-
-    // Retorna o token + dados do usuário:
+    
+    // Retorna o token juntamente com as informações do usuário:
     res.json({
       token: jwtToken,
       user: {
@@ -58,8 +55,10 @@ export const googleLogin = async (req: Request, res: Response): Promise<void> =>
         name: user.name,
       },
     });
+
+    res.status(200);
+
   } catch (err) {
-    console.error("Erro ao verificar o token do Google:", err);
     res.status(401).json({ error: "Token inválido ou expirado..." });
   }
 };

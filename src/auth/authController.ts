@@ -15,7 +15,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Usuário ou senha incorretos. Tente novamente." });
     }
 
-    // Gerar token JWT
+    // Gerar token JWT:
     const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, process.env.JWT_SECRET as string, {
       expiresIn: "1h", 
     });
