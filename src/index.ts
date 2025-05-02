@@ -28,6 +28,7 @@ app.use(express.json());
 // Rotas da aplicação:
 app.get("/", (req, res) => {
   res.send("Welcome in BETA");
+  res.status(200);
 });
 
 // Rotas de autenticação de login:
