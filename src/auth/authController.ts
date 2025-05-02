@@ -12,7 +12,7 @@ export const login = async (req: Request, res: Response) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user || !(await user.checkPassword(password))) {
-      return res.status(401).json({ message: "Credenciais inválidas" });
+      return res.status(401).json({ message: "Usuário ou senha incorretos. Tente novamente." });
     }
 
     // Gerar token JWT
@@ -21,7 +21,8 @@ export const login = async (req: Request, res: Response) => {
     });
 
     res.json({ token });
+    res.status(200);
   } catch (error) {
-    res.status(500).json({ message: "Erro interno! Espere um pouco e tente novamente mais tarde." });
+    res.status(500).json({ message: "Erro interno no servidor. Aguarde um momento e tente novamente." });
   }
 };
