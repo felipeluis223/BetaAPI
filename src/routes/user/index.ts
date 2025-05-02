@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     await createUser(req, res);
 });
 
-router.get('/', async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
     await getUsers(req, res);
 });
 

@@ -5,15 +5,16 @@ const updateUser = async (req: Request, res: Response) => {
     try {
         const { id, name, email } = req.body;
 
+        // Se o parâmetro ID não estiver presente:
         if (!id) {
             return res.status(400).json({ message: "ID do usuário é obrigatório." });
-        }
+        };
 
         // Buscar o usuário no banco pelo ID:
         const user = await User.findByPk(id);
 
         if (!user) {
-            return res.status(404).json({ message: "Usuário não encontrado." });
+            return res.status(204).send();
         }
 
         // Atualizar apenas os campos enviados:
@@ -22,10 +23,9 @@ const updateUser = async (req: Request, res: Response) => {
 
         // Salvar as alterações no banco:
         await user.save();
-
         return res.status(200).json({ message: "Usuário atualizado com sucesso.", user });
+        
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ message: "Erro interno do servidor." });
     }
 };
