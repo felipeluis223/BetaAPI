@@ -20,7 +20,7 @@ router.put('/', authenticate, async(req, res) =>{
     await updateUser(req, res);
 });
 
-router.delete('/', authenticate, async(req, res)=>{
+router.delete('/:id', authenticate, async(req, res)=>{
     await deleteUser(req, res);
 });
 

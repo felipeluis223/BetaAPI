@@ -3,7 +3,7 @@ import User from '../../database/models/User';
 
 const deleteUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
 
         // Se o parâmetro ID não estiver presente:
         if (!id) {
