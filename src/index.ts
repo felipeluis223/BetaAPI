@@ -27,7 +27,7 @@ app.use(express.json());
 
 // Rotas da aplicação:
 app.get("/", (req, res) => {
-  res.send("Welcome in BETA");
+  res.send("Bem-vindo à API do servidor BETA...");
   res.status(200);
 });
 
