@@ -3,14 +3,14 @@ import Employee from '../../database/models/Employee';
 
 const updateEmployee = async (req: Request, res: Response) => {
     try {
-        const { id, name, email } = req.body;
+        const { id, name, email, cpf, rg, phone } = req.body;
 
         // Se o parâmetro ID não estiver presente:
         if (!id) {
-            return res.status(400).json({ message: "ID do usuário é obrigatório." });
+            return res.status(400).json({ message: "ID do funcionario é obrigatório." });
         };
 
-        // Buscar o usuário no banco pelo ID:
+        // Buscar o funcionario no banco pelo ID:
         const employee = await Employee.findByPk(id);
 
         if (!employee) {
@@ -20,10 +20,13 @@ const updateEmployee = async (req: Request, res: Response) => {
         // Atualizar apenas os campos enviados:
         if (name !== undefined) employee.name = name;
         if (email !== undefined) employee.email = email;
+        if (cpf !== undefined) employee.cpf = cpf;
+        if (rg !== undefined) employee.rg = rg;
+        if (phone !== undefined) employee.phone = phone;
 
         // Salvar as alterações no banco:
         await employee.save();
-        return res.status(200).json({ message: "Usuário atualizado com sucesso.", employee });
+        return res.status(200).json({ message: "Funcionario atualizado com sucesso.", employee });
         
     } catch (error) {
         return res.status(500).json({ message: "Erro interno do servidor." });

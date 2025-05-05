@@ -16,7 +16,6 @@ router.get("/", authenticate, async (req, res) => {
     await getEmployee(req, res);
 });
 
-
 router.put("/", authenticate, async (req, res) => {
     await updateEmployee(req, res);
 });
@@ -24,6 +23,5 @@ router.put("/", authenticate, async (req, res) => {
 router.delete("/:id", authenticate, async (req, res) => {
     await deleteEmployee(req, res);
 });
-
 
 export default router;
