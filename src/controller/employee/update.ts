@@ -7,10 +7,10 @@ const updateEmployee = async (req: Request, res: Response) => {
 
         // Se o parâmetro ID não estiver presente:
         if (!id) {
-            return res.status(400).json({ message: "ID do funcionario é obrigatório." });
+            return res.status(400).json({ message: "ID do funcionário é obrigatório." });
         };
 
-        // Buscar o funcionario no banco pelo ID:
+        // Buscar o funcionário no banco pelo ID:
         const employee = await Employee.findByPk(id);
 
         if (!employee) {
@@ -26,7 +26,7 @@ const updateEmployee = async (req: Request, res: Response) => {
 
         // Salvar as alterações no banco:
         await employee.save();
-        return res.status(200).json({ message: "Funcionario atualizado com sucesso.", employee });
+        return res.status(200).json({ message: "Funcionário atualizado com sucesso.", employee });
         
     } catch (error) {
         return res.status(500).json({ message: "Erro interno do servidor." });
