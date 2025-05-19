@@ -30,3 +30,22 @@ beta-api/
 ├── package.json
 └── README.md
 ```
+
+
+## 🔧 Repositório e instalação de dependências
+
+1. Clone o repositório:
+
+```bash
+    git clone https://github.com/felipeluis223/BetaAPI.git
+```
+
+2. Instalando as dependências:
+
+``` bash
+    cd BetaAPI
+    npm install
+```
+
+3. Configurando o arquivo ".env":
+4. Executando o projeto:
