@@ -48,4 +48,14 @@ beta-api/
 ```
 
 3. Configurando o arquivo ".env":
+```
+    JWT_SECRET= assinatura jwt
+    DB_NAME= nome banco de dados
+    DB_USER= usuario banco de dados
+    DB_PASSWORD= senha banco de dados
+    DB_HOST= host banco de dados
+    DB_DIALECT= linguagem sql banco de dados
+    PORT= porta em execução - API
+    GOOGLE_CLIENT_ID = Autenticação via Google https://console.cloud.google.com/
+```
 4. Executando o projeto:
