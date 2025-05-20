@@ -7,7 +7,7 @@ const getEmployee = async (req: Request, res: Response) => {
     try {
         const allEmployee = await Employee.findAll();
         if (allEmployee.length === 0) {
-            return res.status(204).json({ message: "Nenhum funcionário cadastrado no momento." });
+            return res.status(204).send();
         }
 
         res.status(200).json(allEmployee);
