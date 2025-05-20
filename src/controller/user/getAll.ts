@@ -5,7 +5,7 @@ import User from "../../database/models/User";
 const getUsers = async (req: Request, res: Response) => {
     try {
         const allUsers = await User.findAll({
-            attributes: [ "name", "email" ]
+            attributes: [ "id", "name", "email" ]
         });
 
         // Se não houver usuários registrado na base de dados:

@@ -6,7 +6,7 @@ import Employee from "../../database/models/Employee";
 const getEmployee = async (req: Request, res: Response) => {
     try {
         const allEmployee = await Employee.findAll({
-            attributes: [ "name", "cpf", "rg", "email", "phone" ]
+            attributes: [ "id", "name", "cpf", "rg", "email", "phone" ]
         });
         if (allEmployee.length === 0) {
             return res.status(204).send();
