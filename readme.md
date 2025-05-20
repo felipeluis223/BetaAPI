@@ -18,7 +18,7 @@ A **Beta API** é uma interface RESTful projetada para fornecer acesso eficiente
 - Sequelize ORM
 
 ## 📂 Estrutura do Projeto
-```
+```bash
 beta-api/
 ├── src/
 │ ├── controllers/
@@ -37,25 +37,35 @@ beta-api/
 1. Clone o repositório:
 
 ```bash
-    git clone https://github.com/felipeluis223/BetaAPI.git
+git clone https://github.com/felipeluis223/BetaAPI.git
 ```
 
 2. Instalando as dependências:
 
-``` bash
-    cd BetaAPI
-    npm install
+```bash
+cd BetaAPI
+npm install
 ```
 
 3. Configurando o arquivo ".env":
+```bash
+JWT_SECRET= assinatura jwt
+DB_NAME= nome banco de dados
+DB_USER= usuario banco de dados
+DB_PASSWORD= senha banco de dados
+DB_HOST= host banco de dados
+DB_DIALECT= linguagem sql banco de dados
+PORT= porta em execução - API
+GOOGLE_CLIENT_ID = Autenticação via Google https://console.cloud.google.com/
 ```
-    JWT_SECRET= assinatura jwt
-    DB_NAME= nome banco de dados
-    DB_USER= usuario banco de dados
-    DB_PASSWORD= senha banco de dados
-    DB_HOST= host banco de dados
-    DB_DIALECT= linguagem sql banco de dados
-    PORT= porta em execução - API
-    GOOGLE_CLIENT_ID = Autenticação via Google https://console.cloud.google.com/
-```
-4. Executando o projeto:
+
+4. Formas de executar o projeto:
+    - Executando localhost:
+    ```bash
+    npm run dev 
+    ```
+
+    - Executando em produção:
+    ```bash
+    npm run dev -- --host
+    ```
