@@ -3,18 +3,18 @@ import User from '../../database/models/User';
 
 const updateUser = async (req: Request, res: Response) => {
     try {
-        const { id, name, email } = req.body;
+        const { id } = req.params;
+        const { name, email } = req.body;
 
-        // Se o parâmetro ID não estiver presente:
         if (!id) {
-            return res.status(400).json({ message: "ID do usuário é obrigatório." });
-        };
+            return res.status(400).json({ message: "ID do usuário é obrigatório na URL." });
+        }
 
         // Buscar o usuário no banco pelo ID:
         const user = await User.findByPk(id);
 
         if (!user) {
-            return res.status(204).send();
+            return res.status(404).json({ message: "Usuário não encontrado." });
         }
 
         // Atualizar apenas os campos enviados:
