@@ -16,7 +16,7 @@ router.get("/", authenticate, async (req, res) => {
     await getEmployee(req, res);
 });
 
-router.put("/", authenticate, async (req, res) => {
+router.put("/:id", authenticate, async (req, res) => {
     await updateEmployee(req, res);
 });
 
