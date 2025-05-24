@@ -3,18 +3,18 @@ import Employee from '../../database/models/Employee';
 
 const updateEmployee = async (req: Request, res: Response) => {
     try {
-        const { id, name, email, cpf, rg, phone } = req.body;
+        const { id } = req.params;
+        const { name, email, cpf, rg, phone } = req.body;
 
-        // Se o parâmetro ID não estiver presente:
         if (!id) {
-            return res.status(400).json({ message: "ID do funcionário é obrigatório." });
-        };
+            return res.status(400).json({ message: "ID do funcionário é obrigatório na URL." });
+        }
 
         // Buscar o funcionário no banco pelo ID:
         const employee = await Employee.findByPk(id);
 
         if (!employee) {
-            return res.status(204).send();
+            return res.status(404).json({ message: "Funcionário não encontrado." });
         }
 
         // Atualizar apenas os campos enviados:
