@@ -69,3 +69,10 @@ GOOGLE_CLIENT_ID = Autenticação via Google https://console.cloud.google.com/
     ```bash
     npm run dev -- --host
     ```
+
+## Interface de Login:
+Realizar login de duas formas: 
+- Autenticação pública (email e senha).
+- Autenticação via Google.
+
+Após a verificação e autenticação será redirecionado para a home:
