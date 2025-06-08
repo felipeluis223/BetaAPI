@@ -1,4 +1,4 @@
-# Beta API
+# Sistema Beta - API
 
 A **Beta API** é uma interface RESTful projetada para fornecer acesso eficiente e seguro a recursos e dados internos de aplicações. Esta API está em fase **beta**, ou seja, sujeita a alterações durante a evolução de seu desenvolvimento.
 
