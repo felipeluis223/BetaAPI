@@ -76,3 +76,6 @@ Realizar login de duas formas:
 - Autenticação via Google.
 
 Após a verificação e autenticação será redirecionado para a home:
+```bash
+/home
+```
